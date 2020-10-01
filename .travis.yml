@@ -1,0 +1,18 @@
+sudo: required
+
+services:
+  - docker
+
+env:
+  matrix:
+    - SALT_VERSION=3001
+
+script:
+  - make "salt$SALT_VERSION"
+  - >
+    docker run
+    -it
+    --volume $(pwd):/var
+    -w="/var"
+    "salt-container:$SALT_VERSION"
+    bash ./test/test.sh

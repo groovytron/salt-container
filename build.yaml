@@ -1,0 +1,13 @@
+# This file is only used to build multiple images
+version: '3'
+
+services:
+  salt3001:
+    image: ${COMPOSE_BUILD_NAME}:3001
+    build:
+      dockerfile: 3001/Dockerfile
+      context: .
+      args:
+        - BUILD_DATE=$BUILD_DATE
+        - SALT_VERSION=3001
+        - VCS_REF=$VCS_REF
