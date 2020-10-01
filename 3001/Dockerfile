@@ -24,6 +24,7 @@ RUN apt-get update \
         salt-minion \
         salt-ssh \
         salt-syndic \
+        python3-pygit2 \
     && apt-get autoremove --quiet --yes \
     && apt-get clean
 
@@ -41,6 +42,10 @@ RUN echo "LC_ALL=en_US.UTF-8" >> /etc/environment \
 # Set timezone
 RUN rm /etc/localtime
 RUN ln -s /usr/share/zoneinfo/Europe/Zurich /etc/localtime
+
+# Create less privileged user
+RUN groupadd --gid 1000 dev \
+  && useradd --uid 1000 --gid dev --shell /bin/bash --create-home dev
 
 EXPOSE 4505 4506
 
